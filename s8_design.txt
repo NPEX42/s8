@@ -1,0 +1,53 @@
+== Inspirations == 
+- 6502 - RISC Architecture
+- PDP-8 - Small Instruction Set
+
+== Architecture == 
+- 3 General Purpose Registers - A, X, Y
+- 3 Special Purpose Registers - SP, PC, FLAGS, BANK
+- 64KB Address Bus
+- 8-bit Data Bus
+
+== Memory Map ==
+- 0x0000 - 0x3FFF - ROM (16KB)
+- 0x4000 - 0x4FFF - RAM (1KB, Fixed) | Stack - Offset @ 0x1000
+- 0x5000 - 0x7FFF - RAM (12KB)
+- 0x8000 - 0x800F - Serial Bus
+- 0xF000 - 0xFE00 - MMIO Reserved
+- 0xFF00 - 0xFFFD - Interrupt Table
+- 0xFFFE = 0xFFFF - RESET VECTOR
+
+== Instruction Format ==
+SO XX YY ZZ WW
+S: Set ID (4b)
+O: Opcode (4b)
+
+XX: Arg 0,
+YY: Arg 1,
+ZZ: Arg 2,
+WW: Arg 3
+
+== Instruction Set ==
+
+== CORE ==
+0 | NOP
+1 | INT <Index>
+2 | ADD <reg> <reg/imm8> <reg/imm8> | reg =   reg/imm8 + reg/imm8
+3 | SUB <reg> <reg/imm8> <reg/imm8> | reg =   reg/imm8 - reg/imm8
+4 | AND <reg> <reg/imm8> <reg/imm8> | reg =   reg/imm8 & reg/imm8
+5 | NOT <reg> <reg/imm8>            | reg = ~(reg/imm8)
+6 | JMZ <reg> <addr>                | PC = (reg == 0) ? addr : PC
+7 | JNZ <reg> <addr>                | PC = (reg != 0) ? addr : PC
+8 | LDA <reg> <addr>                | reg = mem[addr]
+9 | LDI <reg> <imm8>                | reg = imm8
+A | BSL <imm8>                      | reg = reg << imm8
+B | BSR <imm8>                      | reg = reg >> imm8
+C | POP <reg>                       | reg = mem[--SP]
+D | PUSH <reg/imm8>                 | mem[SP++] = reg/imm8
+E | STA <addr> <reg> <reg?>         | mem[addr + reg] = reg 
+F | HLT                             | Halt the system
+
+
+
+
+
