@@ -39,15 +39,9 @@ impl Instruction {
         }
     }
 
-    pub unsafe fn as_mut_slice<'a>(&mut self) -> &mut [u8; std::mem::size_of::<Instruction>()]  {
+    pub unsafe fn as_mut_slice<'a>(&mut self) -> &'a mut [u8; std::mem::size_of::<Instruction>()]  {
         let mut view = self as *mut _ as *mut u8;
-        let slice : [u8; std::mem::size_of::<Instruction>()] = std::slice::from_raw_parts_mut(view, std::mem::size_of::<Instruction>())
+        let slice : [u8] = std::slice::from_raw_parts_mut(view, std::mem::size_of::<Instruction>())
         slice
     }
-
-    pub unsafe fn as_slice<'a>(self) -> [u8; std::mem::size_of::<Instruction>()] {
-        let slice : [u8; std::mem::size_of::<Instruction>()] = self.as_mut_slice();
-        slice
-    }
-
 } 
