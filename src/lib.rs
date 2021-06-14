@@ -1,6 +1,8 @@
 #![cfg_attr(feature = "libcore", no_std)]
 
-/// The S8 is compatible with the Std Rust Library, and Libcore / Liballoc
+/// The S8 is compatible with the Std Rust Library, Libcore & Liballoc
+/// The Crate makes some assumptions about the underlying system, mainly the core lib is available
+/// & an allocator is available.
 #[cfg(feature = "libcore")]
     pub(crate) use core as std;
 
