@@ -1,10 +1,15 @@
 use crate::std;
 use crate::mem;
 
+use mem::vec;
+use mem::vec::Vec;
+
+use mem::string::String;
+
 #[derive(Debug)]
 #[repr(C)]
 pub struct Chunk {
-    
+    instructions    : Vec<Instruction>
 }
 
 #[derive(Debug, PartialEq, Eq)]
@@ -39,9 +44,10 @@ impl Instruction {
         }
     }
 
-    pub unsafe fn as_mut_slice<'a>(&mut self) -> &'a mut [u8; std::mem::size_of::<Instruction>()]  {
+    pub unsafe fn as_mut_slice<'a>(&mut self) -> &mut [u8]  {
         let mut view = self as *mut _ as *mut u8;
-        let slice : [u8] = std::slice::from_raw_parts_mut(view, std::mem::size_of::<Instruction>())
+        let slice = std::slice::from_raw_parts_mut(view, std::mem::size_of::<Instruction>());
         slice
     }
+
 } 

@@ -48,6 +48,36 @@ E | STA <addr> <reg> <reg?>         | mem[addr + reg] = reg
 F | HLT                             | Halt the system
 
 
+== Assembler Tokens ==
+Instruction(mnemonic)
+Register(index)
+Immediate(value)
+Address(value)
+Label(name)
 
+
+== Assmbly BNF ==
+<program> := <line>+
+<line> := <label> <instruction> <comment>
+<label> := <alpha>+<alpha_num>*:
+<comment> := *<EOL>
+<instruction> := <mnemonic> <args>
+<mnemonic> := <alpha>+
+<args> := <arg>*
+<arg> := <register> | <immediate> | <address>
+<register> := r<hex_imm8>
+<immediate> := #[<dec_imm8> | <hex_imm8> | <bin_imm8>]\
+<address> := $<hex_imm16>
+<dec_imm8> := <num>{3}
+<hex_imm8> := $<hex>{2}
+<hex_imm8> := $<hex>{4}
+<bin_imm8> := %[01]{8}
+
+
+== AST Node Types ==
+Instruction
+Immediate
+Label
+Address
 
 
